@@ -15,6 +15,7 @@ export default App;
 
 // Add some text to test
 //some more text
+// yet more text
 // {[...new Array(120)] // creates 120 copies of the below onto the screen
 //   .map(
 //     () => `Cras mattis consectetur purus sit amet fermentum.
