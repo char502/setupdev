@@ -9,7 +9,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Header />
       hello!
-      <p>this is a test</p>
+      {/* <p>this is a test</p> */}
     </ThemeProvider>
   );
 }
