@@ -17,13 +17,18 @@ export default createMuiTheme({
     }
   },
   typography: {
-    // fontFamily: '\'Lato\', "Lucida Grande", Tahoma, Sans-Serif',
-    // h1: {
-    //   fontSize: '2.6em',
-    //   fontWeight: 900
-    // }
-    h3: {
-        fontWeight: 300
-      }
+    tab: {
+      fontFamily: "Raleway",
+      textTransform: "none",
+      fontWeight: 700,
+      fontSize: "1rem", // rem is a responsive unit keeping it consistent across screen sizes 
+    },
+    estimate: {
+      fontFamily: "Pacifico",
+      fontSize: "1rem",
+      textTransform: "none",
+      color: "white"
+    }
   }
+  
 })
