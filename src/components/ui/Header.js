@@ -50,8 +50,19 @@ const useStyles = makeStyles(theme => ({
     marginLeft: "50px",
     marginRight: "25px",
     height: "45px"
+  },
+  menu: {
+    backgroundColor: theme.palette.common.blue,
+    color: "white",
+    borderRadius: "0px"
+  },
+  menuItem: {
+    ...theme.typography.tab,
+    opacity: 0.7,
+    "&:hover": {
+      opacity: 1
+    }
   }
-  
 }))
 
 export default function Header(props) {
@@ -60,6 +71,7 @@ export default function Header(props) {
   const [value, setValue] = useState(0)
   const [anchorEl, setAnchorEl] = useState(null)
   const [open, setOpen] = useState(false)
+  const [selectedIndex, setSelectedIndex] = useState(0)
 
   const handleChange = (e, value) => {
     setValue(value)
@@ -70,10 +82,36 @@ export default function Header(props) {
     setOpen(true)
   }
 
+  const handleMenuItemClick = (e, i) => {
+    setAnchorEl(null);
+    setOpen(false);
+    setSelectedIndex(i)
+
+  }
+
   const handleClosed = () => {
     setAnchorEl(null)
     setOpen(false)
   }
+
+  const menuOptions = [
+    {
+      name: 'Services',
+      link: '/services'
+    },
+    {
+      name: 'Custom Software Development',
+      link: '/customsoftware'
+    },
+    {
+      name: 'Mobile App Development',
+      link: '/mobileapps'
+    },
+    {
+      name: 'Website Development',
+      link: '/websites'
+    },
+]
 
   useEffect(() => {
     if (window.location.pathname === "/" && value !== 0) {
@@ -88,6 +126,60 @@ export default function Header(props) {
       setValue(4)
     } else if (window.location.pathname === "/estimate" && value !== 5) {
       setValue(5)
+    }
+
+    switch(window.location.pathname) {
+      case "/":
+        if (value !== 0) {
+          setValue(0)
+        }
+        break;
+      case "/services":
+        if (value !== 1) {
+          setValue(1)
+          setSelectedIndex(0)
+        }
+        break;
+      case "/customsoftware":
+        if (value !== 1) {
+          setValue(1)
+          setSelectedIndex(1)
+        }
+        break;
+      case "/mobileapps":
+        if (value !== 1) {
+          setValue(1)
+          setSelectedIndex(2)
+        }
+        break;
+      case "/websites": 
+        if (value !== 1) {
+          setValue(1)
+          setSelectedIndex(3)
+        }
+        break;
+      case "/revolution": 
+        if (value !== 2) {
+          setValue(2)
+        }
+        break;
+      case "/about": 
+        if (value !== 3) {
+          setValue(3)
+        }
+        break;
+      case "/contact": 
+        if (value !== 4) {
+          setValue(4)
+        }
+        break;
+      case "/estimate": 
+        if (value !== 5) {
+          setValue(5)
+        }
+        break;
+      default:
+        break;
     }
   }, [value])
   
@@ -125,17 +217,28 @@ export default function Header(props) {
               anchorEl={anchorEl}
               open={open}
               onClose={handleClosed}
+              classes={{paper: classes.menu}}
               MenuListProps={{onMouseleave: handleClosed}}
+              elevation={0}
             >
-              <MenuItem onClick={handleClosed}>Custom Software Development</MenuItem>
-              <MenuItem onClick={handleClosed}>Mobile App Development</MenuItem>
-              <MenuItem onClick={handleClosed}>Website Development</MenuItem>
 
+              {menuOptions.map((option, i) => (
+                <MenuItem 
+                  key={option} 
+                  classes={{root: classes.menuItem}}
+                  onClick={(event) => {handleMenuItemClick(event, i); setValue(1); handleClosed() }}
+                  selected={i === selectedIndex && value === 1}
+                  component={Link} 
+                  to={option.link}
+                >
+                  {option.name}
+                </MenuItem>
+              ))}
             </Menu>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
       <div className={classes.toolbarMargin} />
-    </React.Fragment>
-  )
+    </React.Fragment>  
+  );
 }
